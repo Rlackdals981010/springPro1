@@ -9,10 +9,7 @@ import com.kcm.demo.entity.Event;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -42,15 +39,36 @@ public class EventController {
                     preparedStatement.setString(1, event.getTodo());
                     preparedStatement.setString(2, event.getName());
                     preparedStatement.setString(3, event.getPassword());
-                    preparedStatement.setDate(4, (Date) event.getUpdate_day());
+                    preparedStatement.setDate(4, (Date) event.getUpdateDay());
                     return preparedStatement;
                 },
                 keyHolder);
 
         Long id = keyHolder.getKey().longValue();
-        event.setEvent_id(id);
+        event.setEventId(id);
 
         EventResponseDto eventResponseDto = new EventResponseDto(event);
         return eventResponseDto;
     }
+
+    @GetMapping("{eventid}")
+    public void printEventOne(@PathVariable String eventid){
+        //해당 ID를 갖는 이벤트 존재 확인
+//        if(){}
+//        else{
+//            throw new IllegalArgumentException("해당 일정은 존재하지 않습니다.");
+//        }
+    }
+
+    @GetMapping()
+    public void printEventAll(){}
+
+    @PutMapping("{eventid}")
+    public void updateEvent(@PathVariable String eventid){}
+
+    @DeleteMapping("{eventid}")
+    public void deleteEvent(@PathVariable String eventid){}
+
+
+
 }
