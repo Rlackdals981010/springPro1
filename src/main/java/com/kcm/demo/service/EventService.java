@@ -46,17 +46,34 @@ public class EventService {
     }
 
 
-    public void printEventOne(Long eventId) {
+    public Event printEventOne(Long eventId,EventRequestDto eventRequestDto) {
         Event event = findById(eventId);
-        if(event!=null){}
+        if(event!=null){
+            String sql = "SELECT * FROM Event WHERE eventId = ?";
+            try {
+                // 단일 결과 queryForObject
+                return jdbcTemplate.queryForObject(sql, new Object[]{eventId}, new RowMapper<Event>() {
+                    @Override
+                    public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Event event = new Event();
+                        event.setEventId(rs.getLong("eventId"));
+                        event.setUpdateDay(rs.getDate("updateDay"));
+                        event.setName(rs.getString("name"));
+                        return event;
+                    }
+                });
+            } catch (Exception e) {
+                // 로그를 추가하거나 다른 오류 처리를 할 수 있습니다.
+                throw new IllegalArgumentException("이벤트를 찾을 수 없습니다.");
+            }
+        }
         else{
             throw new IllegalArgumentException("선택한 일정은 없습니다.");
         }
 
-
     }
 
-    public void printEventAll(EventRequestDto eventRequestDto) {
+    public List<Event> printEventAll(EventRequestDto eventRequestDto) {
         String sql = "SELECT * FROM Event WHERE updateDay =? or name =? ";
         List<Event> events = jdbcTemplate.query(sql, new Object[]{eventRequestDto.getUpdateDay(), eventRequestDto.getName()}, new RowMapper<Event>() {
             @Override
@@ -69,9 +86,7 @@ public class EventService {
                 return event;
             }
         });
-        for (Event event : events) {
-            System.out.println("Id: " + event.getEventId() + ", UpdateDay: " + event.getUpdateDay() + ", Name: " + event.getName());
-        }
+        return events;
     }
 
     public Long updateEvent(Long eventId,EventRequestDto eventRequestDto) {
