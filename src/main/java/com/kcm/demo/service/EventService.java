@@ -59,9 +59,13 @@ public class EventService {
     public void printEventAll() {
     }
 
-    public void updateEvent(Long eventId) {
+    public Long updateEvent(Long eventId,EventRequestDto eventRequestDto) {
         Event event = findById(eventId);
-        if(event!=null){}
+        if(event!=null){
+            String sql = "UPDATE event SET todo =? ,name=? WHERE eventId =?";
+            jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventRequestDto.getName(), eventId);
+            return  eventId;
+        }
         else{
             throw new IllegalArgumentException("선택한 일정은 없습니다.");
         }

@@ -40,9 +40,9 @@ public class EventController {
     }
 
     @PutMapping("{eventid}")
-    public void updateEvent(@PathVariable Long eventId) {
+    public Long updateEvent(@PathVariable Long eventId,EventRequestDto eventRequestDto) {
         EventService eventService = new EventService(jdbcTemplate);
-        return eventService.updateEvent(eventId);
+        return eventService.updateEvent(eventId,eventRequestDto);
     }
 
     @DeleteMapping("{eventid}")
