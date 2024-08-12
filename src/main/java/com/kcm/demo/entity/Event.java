@@ -19,7 +19,6 @@ public class Event {
     private Date updateDay;
 
     public Event(EventRequestDto eventRequestDto) {
-
         this.todo = eventRequestDto.getTodo();
         this.name = eventRequestDto.getName();
         this.password = eventRequestDto.getPassword();

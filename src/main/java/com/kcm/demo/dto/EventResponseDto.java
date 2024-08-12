@@ -19,7 +19,8 @@ public class EventResponseDto {
         this.eventId = event.getEventId();
         this.todo = event.getTodo();
         this.name = event.getName();
-        this.password = event.getPassword();
+        //this.password = event.getPassword();
+        this.createDay = event.getCreateDay();
         this.updateDay = event.getUpdateDay();
     }
 }

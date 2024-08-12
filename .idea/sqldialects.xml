@@ -2,6 +2,5 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/schedule.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/kcm/demo/repository/EventRepository.java" dialect="MySQL" />
   </component>
 </project>
