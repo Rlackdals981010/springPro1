@@ -1,0 +1,11 @@
+CREATE TABLE Calender(
+    id INT AUTO_INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE Event(
+    event_id INT AUTO_INCREMENT PRIMARY KEY,
+    todo VARCHAR(300) NOT NULL ,
+    name VARCHAR(50) NOT NULL ,
+    password VARCHAR(255) NOT NULL ,
+    update_day DATE NOT NULL
+);
