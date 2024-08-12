@@ -4,12 +4,12 @@ import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.List;
 
 // 비즈니스 로직 구현
 // DB 저장 및 조회는 Repository
@@ -56,7 +56,22 @@ public class EventService {
 
     }
 
-    public void printEventAll() {
+    public void printEventAll(EventRequestDto eventRequestDto) {
+        String sql = "SELECT * FROM Event WHERE updateDay =? or name =? ";
+        List<Event> events = jdbcTemplate.query(sql, new Object[]{eventRequestDto.getUpdateDay(), eventRequestDto.getName()}, new RowMapper<Event>() {
+            @Override
+            public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Event event = new Event();
+                event.setEventId(rs.getLong("eventid")); // Assuming there's an 'id' column
+                event.setUpdateDay(rs.getDate("updateDay")); // Assuming 'updateDay' column
+                event.setName(rs.getString("name")); // Assuming 'name' column
+                // Map other fields as necessary
+                return event;
+            }
+        });
+        for (Event event : events) {
+            System.out.println("Id: " + event.getEventId() + ", UpdateDay: " + event.getUpdateDay() + ", Name: " + event.getName());
+        }
     }
 
     public Long updateEvent(Long eventId,EventRequestDto eventRequestDto) {
@@ -76,7 +91,6 @@ public class EventService {
         if(event!=null){
             String sql = "DELETE FROM event WHERE eventId=?";
             jdbcTemplate.update(sql, eventId);
-
             return eventId;
         }
         else{

@@ -34,9 +34,9 @@ public class EventController {
     }
 
     @GetMapping()
-    public void printEventAll() {
+    public void printEventAll(EventRequestDto eventRequestDto) {
         EventService eventService = new EventService(jdbcTemplate);
-        return eventService.printEventAll();
+        return eventService.printEventAll(eventRequestDto);
     }
 
     @PutMapping("{eventid}")
