@@ -1,1 +1,53 @@
-# springPro1
+# spring Calendar
+
+---
+
+## Calendar v1.0
+
+## 정보
+
+## 배포 주소
+
+## 소개
+
+## 프로젝트 소개
+
+---
+
+# 가이드
+
+## 요구 사항
+
+## 설치 및 실행
+
+---
+
+# Stacks
+
+---
+
+# 화면 구성
+
+---
+
+# API
+
+| 기능        | Method | URL                     | request | response | 상태코드       |
+|-----------|--------|-------------------------|---------|----------|------------|
+| 일정 작성     | POST   | /calendars              | Body    | 등록 정보    | 200 : 정상작성 |
+| 선택한 일정 조회 | GET    | /calendars/{calendarid} | Param   | 단건 응답 정보 | 200 : 정상조회 |
+| 일정 목록 조회  | GET    | /calendars/             | Param   | 다건 응답 정보 | 200 : 정상조회 |
+| 선택한 일정 수정 | PUT    | /calendars/{calendarid} | Body    | 수정 정보    | 200 : 정상수정 |
+| 선택한 일정 삭제 | DELETE | /calendars/{calendarid} | Body    | -        | 200 : 정상삭제 |
+
+---
+
+# 주요 기능
+
+---
+
+# ERD
+
+---
+
+# SQL
