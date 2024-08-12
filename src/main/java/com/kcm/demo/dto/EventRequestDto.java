@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.Date;
 
+//Client가 입력하는 데이터가 여기를 통해서 매핑될꺼임.
 @Getter
 public class EventRequestDto {
     private String todo;
