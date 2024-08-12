@@ -5,15 +5,11 @@ package com.kcm.demo.controller;
 
 import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
-import com.kcm.demo.entity.Event;
+import com.kcm.demo.service.EventService;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+
 
 @RestController
 @RequestMapping("/events")
@@ -27,47 +23,34 @@ public class EventController {
 
     @PostMapping()
     public EventResponseDto createEvent(@RequestBody EventRequestDto eventRequestDto) {//여기서 request 데이터를 받아야함
-        Event event = new Event(eventRequestDto);
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        String sql = "INSERT INTO event (todo,name,password,update_day VALUES(?,?,?,?))";
-        jdbcTemplate.update(con -> {
-                    PreparedStatement preparedStatement = con.prepareStatement(sql,
-                            Statement.RETURN_GENERATED_KEYS);
-
-                    preparedStatement.setString(1, event.getTodo());
-                    preparedStatement.setString(2, event.getName());
-                    preparedStatement.setString(3, event.getPassword());
-                    preparedStatement.setDate(4, (Date) event.getUpdateDay());
-                    return preparedStatement;
-                },
-                keyHolder);
-
-        Long id = keyHolder.getKey().longValue();
-        event.setEventId(id);
-
-        EventResponseDto eventResponseDto = new EventResponseDto(event);
-        return eventResponseDto;
+        EventService eventService = new EventService(jdbcTemplate);
+        return eventService.createEvent(eventRequestDto);
     }
 
     @GetMapping("{eventid}")
-    public void printEventOne(@PathVariable String eventid){
-        //해당 ID를 갖는 이벤트 존재 확인
-//        if(){}
-//        else{
-//            throw new IllegalArgumentException("해당 일정은 존재하지 않습니다.");
-//        }
+    public void printEventOne(@PathVariable Long eventId) {
+        EventService eventService = new EventService(jdbcTemplate);
+        return eventService.printEventOne(eventId);
     }
 
     @GetMapping()
-    public void printEventAll(){}
+    public void printEventAll() {
+        EventService eventService = new EventService(jdbcTemplate);
+        return eventService.printEventAll();
+    }
 
     @PutMapping("{eventid}")
-    public void updateEvent(@PathVariable String eventid){}
+    public void updateEvent(@PathVariable Long eventId) {
+        EventService eventService = new EventService(jdbcTemplate);
+        return eventService.updateEvent(eventId);
+    }
 
     @DeleteMapping("{eventid}")
-    public void deleteEvent(@PathVariable String eventid){}
+    public Long deleteEvent(@PathVariable Long eventId) {
+        EventService eventService = new EventService(jdbcTemplate);
+        return eventService.deleteEvent(eventId);
+    }
+
 
 
 
