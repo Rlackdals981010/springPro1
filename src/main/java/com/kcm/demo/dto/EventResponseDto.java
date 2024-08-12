@@ -12,7 +12,7 @@ public class EventResponseDto {
     private String todo;
     private String name;
     private String password;
-    private String createDay;
+    private Date createDay;
     private Date updateDay;
 
     public EventResponseDto(Event event) {

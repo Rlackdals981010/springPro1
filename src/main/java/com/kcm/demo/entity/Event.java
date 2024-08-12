@@ -15,7 +15,7 @@ public class Event {
     private String todo;
     private String name;
     private String password;
-    private String createDay;
+    private Date createDay;
     private Date updateDay;
 
     public Event(EventRequestDto eventRequestDto) {
