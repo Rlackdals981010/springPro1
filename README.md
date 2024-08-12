@@ -36,7 +36,7 @@
 |-----------|--------|-------------------|---------|----------|------------|
 | 일정 작성     | POST   | /events           | Body    | 등록 정보    | 200 : 정상작성 |
 | 선택한 일정 조회 | GET    | /events/{eventid} | Param   | 단건 응답 정보 | 200 : 정상조회 |
-| 일정 목록 조회  | GET    | /events/          | Param   | 다건 응답 정보 | 200 : 정상조회 |
+| 일정 목록 조회  | GET    | /events           | Param   | 다건 응답 정보 | 200 : 정상조회 |
 | 선택한 일정 수정 | PUT    | /events/{eventid} | Body    | 수정 정보    | 200 : 정상수정 |
 | 선택한 일정 삭제 | DELETE | /events/{eventid} | Body    | -        | 200 : 정상삭제 |
 
@@ -57,7 +57,7 @@
 ```
 CREATE TABLE Calender(
     id INT AUTO_INCREMENT PRIMARY KEY
-);
+); 
 
 CREATE TABLE Event(
     event_id INT AUTO_INCREMENT PRIMARY KEY,
