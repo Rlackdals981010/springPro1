@@ -9,5 +9,6 @@ public class EventRequestDto {
     private String todo;
     private String name;
     private String password;
-    private Date update_day;
+    private String createDay;
+    private Date updateDay;
 }

@@ -11,17 +11,19 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class Event {
-    private Long event_id;
+    private Long eventId;
     private String todo;
     private String name;
     private String password;
-    private Date update_day;
+    private String createDay;
+    private Date updateDay;
 
     public Event(EventRequestDto eventRequestDto) {
 
         this.todo = eventRequestDto.getTodo();
         this.name = eventRequestDto.getName();
         this.password = eventRequestDto.getPassword();
-        this.update_day = eventRequestDto.getUpdate_day();
+        this.createDay = eventRequestDto.getCreateDay();
+        this.updateDay = eventRequestDto.getUpdateDay();
     }
 }
