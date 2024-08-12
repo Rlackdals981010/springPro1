@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -22,7 +22,11 @@ public class Event {
         this.todo = eventRequestDto.getTodo();
         this.name = eventRequestDto.getName();
         this.password = eventRequestDto.getPassword();
-        this.createDay = eventRequestDto.getCreateDay();
-        this.updateDay = eventRequestDto.getUpdateDay();
+        this.createDay = getNow();
+        this.updateDay = getNow();
+    }
+
+    private Date getNow(){
+        return new Date(System.currentTimeMillis());
     }
 }

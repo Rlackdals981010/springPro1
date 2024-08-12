@@ -1,0 +1,41 @@
+package com.kcm.demo.repository;
+
+import com.kcm.demo.entity.Event;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+public class EventRepository {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public EventRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+
+    public Event save(Event event) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        String sql = "INSERT INTO Event (todo, name, password, createDay, updateDay) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(con -> {
+            PreparedStatement preparedStatement = con.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, event.getTodo());
+            preparedStatement.setString(2, event.getName());
+            preparedStatement.setString(3, event.getPassword());
+            preparedStatement.setDate(4, event.getCreateDay());
+            preparedStatement.setDate(5, event.getUpdateDay());
+            return preparedStatement;
+        }, keyHolder);
+
+        Long eventId = keyHolder.getKey().longValue();
+        event.setEventId(eventId);
+
+        return event;
+    }
+}
