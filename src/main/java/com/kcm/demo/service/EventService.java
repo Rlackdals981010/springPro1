@@ -6,10 +6,11 @@ import com.kcm.demo.entity.Event;
 import com.kcm.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component // bean 객체 등록 . 즉, bean 클래스로 설정한다는 것.
+@Service // bean 객체 등록 . 즉, bean 클래스로 설정한다는 것.
 public class EventService { //eventService라는 이름으로 IoC 컨테이너에 빈 등록
 
     private final EventRepository eventRepository;
