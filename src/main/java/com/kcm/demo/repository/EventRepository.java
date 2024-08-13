@@ -80,18 +80,35 @@ public class EventRepository {
     }
 
 
-    public void updateById(Long eventId, EventRequestDto eventRequestDto) {
-        if(eventRequestDto.getName() == null ) {
-            String sql = "UPDATE event SET todo = ? WHERE eventId = ? and password = ?";
-            jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventId, eventRequestDto.getPassword());
-        } else if(eventRequestDto.getTodo() == null ) {
-            String sql = "UPDATE event SET name = ? WHERE eventId = ? and password = ?";
-            jdbcTemplate.update(sql, eventRequestDto.getName(), eventId, eventRequestDto.getPassword());
+    public Event updateById(Long eventId, EventRequestDto eventRequestDto) {
+        String sql;
+        Object[] params;
+
+        if (eventRequestDto.getName() == null) {
+            sql = "UPDATE event SET todo = ? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getTodo(), eventId, eventRequestDto.getPassword()};
+        } else if (eventRequestDto.getTodo() == null) {
+            sql = "UPDATE event SET name = ? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getName(), eventId, eventRequestDto.getPassword()};
         } else {
-            String sql = "UPDATE event SET todo = ?, name = ? WHERE eventId = ? and password = ?";
-            jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventRequestDto.getName(), eventId, eventRequestDto.getPassword());
+            sql = "UPDATE event SET todo = ?, name = ? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getName(), eventId, eventRequestDto.getPassword()};
         }
+
+        jdbcTemplate.update(sql, params);
+
+        String selectSql = "SELECT * FROM event WHERE eventId = ?";
+        return jdbcTemplate.queryForObject(selectSql, (resultSet, rowNum) -> {
+            Event event = new Event();
+            event.setEventId(resultSet.getLong("eventId"));
+            event.setTodo(resultSet.getString("todo"));
+            event.setName(resultSet.getString("name"));
+            event.setCreateDay(resultSet.getDate("createDay"));
+            event.setUpdateDay(resultSet.getDate("updateDay"));
+            return event;
+        }, eventId);
     }
+
 
 
     public void deleteById(Long eventId,EventRequestDto eventRequestDto) {

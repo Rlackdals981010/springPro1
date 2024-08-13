@@ -38,7 +38,7 @@ public class eventController {
     }
 
     @PutMapping("/{eventId}")
-    public Long updateEvent(@PathVariable Long eventId, @RequestBody EventRequestDto eventRequestDto){
+    public EventResponseDto updateEvent(@PathVariable Long eventId, @RequestBody EventRequestDto eventRequestDto){
 
         return eventService.updateEvent(eventId,eventRequestDto);
     }

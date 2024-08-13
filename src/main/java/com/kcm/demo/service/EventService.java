@@ -49,13 +49,13 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
         }
     }
 
-    public Long updateEvent(Long eventId, EventRequestDto eventRequestDto) {
+    public EventResponseDto updateEvent(Long eventId, EventRequestDto eventRequestDto) {
         //여기서 걸러야함.
         Event updateEvent = eventRepository.findById(eventId);
         if(updateEvent!=null){
-            eventRepository.updateById(eventId, eventRequestDto);
-            return eventId;
+            return new EventResponseDto(eventRepository.updateById(eventId, eventRequestDto));
         }
+
         else {
             throw new IllegalArgumentException("존재하지 않는 일정입니다.");
         }
