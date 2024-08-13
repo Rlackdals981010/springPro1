@@ -6,6 +6,8 @@ import com.kcm.demo.entity.Event;
 import com.kcm.demo.repository.EventRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 
 public class EventService {
 
@@ -30,5 +32,11 @@ public class EventService {
         Event selectEvent = eventRepository.findById(eventId);
 
         return new EventResponseDto(selectEvent);
+    }
+
+    public List<Event> selectEvents(EventRequestDto eventRequestDto) {
+        EventRepository eventRepository = new EventRepository(jdbcTemplate);
+
+        return eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getName());
     }
 }

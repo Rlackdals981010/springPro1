@@ -3,9 +3,12 @@ package com.kcm.demo.controller;
 
 import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
+import com.kcm.demo.entity.Event;
 import com.kcm.demo.service.EventService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/events")
@@ -27,6 +30,12 @@ public class eventController {
     public EventResponseDto selectEvent(@PathVariable Long eventId) {
         EventService eventService = new EventService(jdbcTemplate);
         return eventService.selectEvent(eventId);
+    }
+
+    @GetMapping()
+    public List<Event> selectEvents(@RequestBody EventRequestDto eventRequestDto){
+        EventService eventService = new EventService(jdbcTemplate);
+        return eventService.selectEvents(eventRequestDto);
     }
 
 }

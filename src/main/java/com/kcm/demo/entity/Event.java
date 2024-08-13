@@ -26,6 +26,7 @@ public class Event {
         this.updateDay = getNow();
     }
 
+
     private Date getNow(){
         return new Date(System.currentTimeMillis());
     }

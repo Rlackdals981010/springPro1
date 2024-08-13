@@ -1,14 +1,14 @@
 package com.kcm.demo.repository;
 
-import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Date;
+import java.util.List;
 
 public class EventRepository {
 
@@ -53,10 +53,25 @@ public class EventRepository {
                 event.setUpdateDay(resultSet.getDate("updateDay"));
                 return event;
             }
-            else{
-                return null;
-            }
+            return null;
         },eventId);
 
+    }
+
+    public List<Event> findByUpdateOrName(Date updateDay, String name) {
+        String sql = "SELECT eventId, todo, name, createDay, updateDay from event where updateDay = ? or name = ?";
+
+        // java.util.Date를 java.sql.Date로 변환
+        java.sql.Date sqlUpdateDay = new java.sql.Date(updateDay.getTime()); // 필수
+
+        return jdbcTemplate.query(sql, (resultSet, rowNum) -> {
+            Event event = new Event();
+            event.setEventId(resultSet.getLong("eventId"));
+            event.setTodo(resultSet.getString("todo"));
+            event.setName(resultSet.getString("name"));
+            event.setCreateDay(resultSet.getDate("createDay"));
+            event.setUpdateDay(resultSet.getDate("updateDay"));
+            return event;
+        }, sqlUpdateDay, name);
     }
 }
