@@ -37,10 +37,12 @@
 - 선택한 일정 수정 
   - 내용중 할일, 담당자만 수정합니다.
   - 비밀번호를 전달합니다.
-  - 작성일은 고정이며 수정일만 수정됩니다
+  - 작성일은 고정이며 수정일만 수정됩니다.
   - 수정된 일정의 정보를 반환받아 확인합니다.
 
-- 선택한 일정 삭제 : eventId와 password를 이용해서 해당 event를 삭제합니다.
+- 선택한 일정 삭제
+  - 선택한 일정을 삭제합니다.
+  - 비밀번호를 함깨 전달합니다.
 
 # Stacks
 ![자바](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
