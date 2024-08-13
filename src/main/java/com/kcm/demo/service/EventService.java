@@ -30,14 +30,26 @@ public class EventService {
     public EventResponseDto selectEvent(Long eventId) {
         EventRepository eventRepository = new EventRepository(jdbcTemplate);
         Event selectEvent = eventRepository.findById(eventId);
+        if(selectEvent!=null){
+            return new EventResponseDto(selectEvent);
+        }
+        else{
+            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
+        }
 
-        return new EventResponseDto(selectEvent);
     }
 
     public List<Event> selectEvents(EventRequestDto eventRequestDto) {
         EventRepository eventRepository = new EventRepository(jdbcTemplate);
 
-        return eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getName());
+        List<Event> eventList = eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getName());
+
+        if(eventList!=null){
+            return eventList;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
     }
 
     public Long updateEvent(Long eventId, EventRequestDto eventRequestDto) {
@@ -53,12 +65,12 @@ public class EventService {
         }
     }
 
-    public Long deleteEvent(Long eventId) {
+    public Long deleteEvent(Long eventId,EventRequestDto eventRequestDto) {
         EventRepository eventRepository = new EventRepository(jdbcTemplate);
 
-        Event updateEvent = eventRepository.findById(eventId);
-        if(updateEvent!=null){
-            eventRepository.deleteById(eventId);
+        Event deleteEvent = eventRepository.findById(eventId);
+        if(deleteEvent!=null){
+            eventRepository.deleteById(eventId,eventRequestDto);
             return eventId;
         }
         else {

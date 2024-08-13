@@ -45,9 +45,9 @@ public class eventController {
     }
 
     @DeleteMapping("/{eventId}")
-    public Long deleteEvent(@PathVariable Long eventId){
+    public Long deleteEvent(@PathVariable Long eventId,@RequestBody EventRequestDto eventRequestDto){
         EventService eventService = new EventService(jdbcTemplate);
-        return eventService.deleteEvent(eventId);
+        return eventService.deleteEvent(eventId,eventRequestDto);
     }
 
 }

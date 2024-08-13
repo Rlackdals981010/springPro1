@@ -82,8 +82,8 @@ public class EventRepository {
         jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventRequestDto.getName(), eventId,eventRequestDto.getPassword());
     }
 
-    public void deleteById(Long eventId) {
-        String sql = "DELETE FROM event WHERE eventId =?";
-        jdbcTemplate.update(sql, eventId);
+    public void deleteById(Long eventId,EventRequestDto eventRequestDto) {
+        String sql = "DELETE FROM event WHERE eventId =? and password=?";
+        jdbcTemplate.update(sql, eventId,eventRequestDto.getPassword());
     }
 }
