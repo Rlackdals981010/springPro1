@@ -1,5 +1,6 @@
 package com.kcm.demo.repository;
 
+import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.entity.Event;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -73,5 +74,11 @@ public class EventRepository {
             event.setUpdateDay(resultSet.getDate("updateDay"));
             return event;
         }, sqlUpdateDay, name);
+    }
+
+
+    public void updateById(Long eventId, EventRequestDto eventRequestDto) {
+        String sql = "UPDATE event SET todo = ?, name = ? WHERE eventId = ? and password = ?";
+        jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventRequestDto.getName(), eventId,eventRequestDto.getPassword());
     }
 }

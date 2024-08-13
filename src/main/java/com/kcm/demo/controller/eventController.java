@@ -38,4 +38,10 @@ public class eventController {
         return eventService.selectEvents(eventRequestDto);
     }
 
+    @PutMapping("/{eventId}")
+    public Long updateEvent(@PathVariable Long eventId, @RequestBody EventRequestDto eventRequestDto){
+        EventService eventService = new EventService(jdbcTemplate);
+        return eventService.updateEvent(eventId,eventRequestDto);
+    }
+
 }

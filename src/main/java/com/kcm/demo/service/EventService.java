@@ -39,4 +39,17 @@ public class EventService {
 
         return eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getName());
     }
+
+    public Long updateEvent(Long eventId, EventRequestDto eventRequestDto) {
+        EventRepository eventRepository = new EventRepository(jdbcTemplate);
+        //여기서 걸러야함.
+        Event updateEvent = eventRepository.findById(eventId);
+        if(updateEvent!=null){
+            eventRepository.updateById(eventId, eventRequestDto);
+            return eventId;
+        }
+        else {
+            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
+        }
+    }
 }
