@@ -52,4 +52,18 @@ public class EventService {
             throw new IllegalArgumentException("존재하지 않는 일정입니다.");
         }
     }
+
+    public Long deleteEvent(Long eventId) {
+        EventRepository eventRepository = new EventRepository(jdbcTemplate);
+
+        Event updateEvent = eventRepository.findById(eventId);
+        if(updateEvent!=null){
+            eventRepository.deleteById(eventId);
+            return eventId;
+        }
+        else {
+            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
+        }
+
+    }
 }
