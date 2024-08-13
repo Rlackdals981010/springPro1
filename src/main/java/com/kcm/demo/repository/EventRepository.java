@@ -82,9 +82,18 @@ public class EventRepository {
 
 
     public void updateById(Long eventId, EventRequestDto eventRequestDto) {
-        String sql = "UPDATE event SET todo = ?, name = ? WHERE eventId = ? and password = ?";
-        jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventRequestDto.getName(), eventId,eventRequestDto.getPassword());
+        if(eventRequestDto.getName() == null || eventRequestDto.getName().isEmpty()) {
+            String sql = "UPDATE event SET todo = ? WHERE eventId = ? and password = ?";
+            jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventId, eventRequestDto.getPassword());
+        } else if(eventRequestDto.getTodo() == null || eventRequestDto.getTodo().isEmpty()) {
+            String sql = "UPDATE event SET name = ? WHERE eventId = ? and password = ?";
+            jdbcTemplate.update(sql, eventRequestDto.getName(), eventId, eventRequestDto.getPassword());
+        } else {
+            String sql = "UPDATE event SET todo = ?, name = ? WHERE eventId = ? and password = ?";
+            jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventRequestDto.getName(), eventId, eventRequestDto.getPassword());
+        }
     }
+
 
     public void deleteById(Long eventId,EventRequestDto eventRequestDto) {
         String sql = "DELETE FROM event WHERE eventId =? and password=?";
