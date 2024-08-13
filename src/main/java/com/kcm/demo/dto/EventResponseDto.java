@@ -11,14 +11,14 @@ public class EventResponseDto {
 
     private Long eventId;
     private String todo;
-    private String name;
+    private String manId;
     private Date createDay;
     private Date updateDay;
 
     public EventResponseDto(Event event) {
         this.eventId = event.getEventId();
         this.todo = event.getTodo();
-        this.name = event.getName();
+        this.manId = event.getManId();
         this.createDay = event.getCreateDay();
         this.updateDay = event.getUpdateDay();
     }

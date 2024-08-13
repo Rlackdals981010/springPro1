@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 public class EventRequestDto {
     private String todo;
-    private String name;
+    private String manId;
     private String password;
     private Date createDay;
     private Date updateDay;

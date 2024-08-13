@@ -13,14 +13,14 @@ import java.sql.Date;
 public class Event {
     private Long eventId;
     private String todo;
-    private String name;
+    private String manId;
     private String password;
     private Date createDay;
     private Date updateDay;
 
     public Event(EventRequestDto eventRequestDto) {
         this.todo = eventRequestDto.getTodo();
-        this.name = eventRequestDto.getName();
+        this.manId = eventRequestDto.getManId();
         this.password = eventRequestDto.getPassword();
         this.createDay = getNow();
         this.updateDay = getNow();

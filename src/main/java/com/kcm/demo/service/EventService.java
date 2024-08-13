@@ -40,7 +40,7 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
 
     public List<Event> selectEvents(EventRequestDto eventRequestDto) {
 
-        List<Event> eventList = eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getName());
+        List<Event> eventList = eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getManId());
         if(eventList!=null){
             return eventList;
         }

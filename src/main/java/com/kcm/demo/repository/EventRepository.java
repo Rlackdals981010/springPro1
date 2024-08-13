@@ -26,12 +26,12 @@ public class EventRepository {
     public Event save(Event event) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        String sql = "INSERT INTO Event (todo, name, password, createDay, updateDay) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Event (todo, manId, password, createDay, updateDay) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(con -> {
             PreparedStatement preparedStatement = con.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, event.getTodo());
-            preparedStatement.setString(2, event.getName());
+            preparedStatement.setString(2, event.getManId());
             preparedStatement.setString(3, event.getPassword());
             preparedStatement.setDate(4, event.getCreateDay());
             preparedStatement.setDate(5, event.getUpdateDay());
@@ -45,14 +45,14 @@ public class EventRepository {
     }
 
     public Event findById(Long eventId) {
-        String sql = "SELECT todo, name, createDay, updateDay from event where eventId = ?";
+        String sql = "SELECT todo, manId, createDay, updateDay from event where eventId = ?";
 
         return jdbcTemplate.query(sql,resultSet->{
             if(resultSet.next()){
                 Event event = new Event();
                 event.setEventId(eventId);
                 event.setTodo(resultSet.getString("todo"));
-                event.setName(resultSet.getString("name"));
+                event.setManId(resultSet.getString("name"));
                 event.setCreateDay(resultSet.getDate("createDay"));
                 event.setUpdateDay(resultSet.getDate("updateDay"));
                 return event;
@@ -63,7 +63,7 @@ public class EventRepository {
     }
 
     public List<Event> findByUpdateOrName(Date updateDay, String name) {
-        String sql = "SELECT eventId, todo, name, createDay, updateDay from event where updateDay = ? or name = ? ORDER BY updateDay desc";
+        String sql = "SELECT eventId, todo, manId, createDay, updateDay from event where updateDay = ? or manId = ? ORDER BY updateDay desc";
 
         // java.util.Date를 java.sql.Date로 변환
         java.sql.Date sqlUpdateDay = new java.sql.Date(updateDay.getTime()); // 필수
@@ -72,7 +72,7 @@ public class EventRepository {
             Event event = new Event();
             event.setEventId(resultSet.getLong("eventId"));
             event.setTodo(resultSet.getString("todo"));
-            event.setName(resultSet.getString("name"));
+            event.setManId(resultSet.getString("name"));
             event.setCreateDay(resultSet.getDate("createDay"));
             event.setUpdateDay(resultSet.getDate("updateDay"));
             return event;
@@ -84,15 +84,15 @@ public class EventRepository {
         String sql;
         Object[] params;
 
-        if (eventRequestDto.getName() == null) {
+        if (eventRequestDto.getManId() == null) {
             sql = "UPDATE event SET todo = ? WHERE eventId = ? and password = ?";
             params = new Object[]{eventRequestDto.getTodo(), eventId, eventRequestDto.getPassword()};
         } else if (eventRequestDto.getTodo() == null) {
-            sql = "UPDATE event SET name = ? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getName(), eventId, eventRequestDto.getPassword()};
+            sql = "UPDATE event SET manId = ? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getManId(), eventId, eventRequestDto.getPassword()};
         } else {
-            sql = "UPDATE event SET todo = ?, name = ? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getName(), eventId, eventRequestDto.getPassword()};
+            sql = "UPDATE event SET todo = ?, manId = ? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getManId(), eventId, eventRequestDto.getPassword()};
         }
 
         jdbcTemplate.update(sql, params);
@@ -102,7 +102,7 @@ public class EventRepository {
             Event event = new Event();
             event.setEventId(resultSet.getLong("eventId"));
             event.setTodo(resultSet.getString("todo"));
-            event.setName(resultSet.getString("name"));
+            event.setManId(resultSet.getString("name"));
             event.setCreateDay(resultSet.getDate("createDay"));
             event.setUpdateDay(resultSet.getDate("updateDay"));
             return event;
