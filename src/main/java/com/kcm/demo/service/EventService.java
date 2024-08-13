@@ -24,4 +24,11 @@ public class EventService {
 
         return new EventResponseDto(saveEvent);
     }
+
+    public EventResponseDto selectEvent(Long eventId) {
+        EventRepository eventRepository = new EventRepository(jdbcTemplate);
+        Event selectEvent = eventRepository.findById(eventId);
+
+        return new EventResponseDto(selectEvent);
+    }
 }

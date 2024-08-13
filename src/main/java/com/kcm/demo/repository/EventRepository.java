@@ -1,5 +1,6 @@
 package com.kcm.demo.repository;
 
+import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -37,5 +38,25 @@ public class EventRepository {
         event.setEventId(eventId);
 
         return event;
+    }
+
+    public Event findById(Long eventId) {
+        String sql = "SELECT todo, name, createDay, updateDay from event where eventId = ?";
+
+        return jdbcTemplate.query(sql,resultSet->{
+            if(resultSet.next()){
+                Event event = new Event();
+                event.setEventId(eventId);
+                event.setTodo(resultSet.getString("todo"));
+                event.setName(resultSet.getString("name"));
+                event.setCreateDay(resultSet.getDate("createDay"));
+                event.setUpdateDay(resultSet.getDate("updateDay"));
+                return event;
+            }
+            else{
+                return null;
+            }
+        },eventId);
+
     }
 }
