@@ -11,24 +11,23 @@ import java.util.List;
 
 public class EventService {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final EventRepository eventRepository;
 
     public EventService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        this.eventRepository = new EventRepository(jdbcTemplate);
     }
 
 
     public EventResponseDto createEvent(EventRequestDto eventRequestDto) {
         Event event = new Event(eventRequestDto);
 
-        EventRepository eventRepository = new EventRepository(jdbcTemplate);
         Event saveEvent = eventRepository.save(event);
 
         return new EventResponseDto(saveEvent);
     }
 
     public EventResponseDto selectEvent(Long eventId) {
-        EventRepository eventRepository = new EventRepository(jdbcTemplate);
+
         Event selectEvent = eventRepository.findById(eventId);
         if(selectEvent!=null){
             return new EventResponseDto(selectEvent);
@@ -40,7 +39,6 @@ public class EventService {
     }
 
     public List<Event> selectEvents(EventRequestDto eventRequestDto) {
-        EventRepository eventRepository = new EventRepository(jdbcTemplate);
 
         List<Event> eventList = eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getName());
 
@@ -53,7 +51,6 @@ public class EventService {
     }
 
     public Long updateEvent(Long eventId, EventRequestDto eventRequestDto) {
-        EventRepository eventRepository = new EventRepository(jdbcTemplate);
         //여기서 걸러야함.
         Event updateEvent = eventRepository.findById(eventId);
         if(updateEvent!=null){
@@ -66,7 +63,6 @@ public class EventService {
     }
 
     public Long deleteEvent(Long eventId,EventRequestDto eventRequestDto) {
-        EventRepository eventRepository = new EventRepository(jdbcTemplate);
 
         Event deleteEvent = eventRepository.findById(eventId);
         if(deleteEvent!=null){

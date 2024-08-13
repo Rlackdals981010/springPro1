@@ -14,39 +14,38 @@ import java.util.List;
 @RequestMapping("/events")
 public class eventController {
 
-    private final JdbcTemplate jdbcTemplate;
-
+    private final  EventService eventService;
     public eventController(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        this.eventService = new EventService(jdbcTemplate);
     }
 
     @PostMapping()
     public EventResponseDto createEvent(@RequestBody EventRequestDto eventRequestDto){
-        EventService eventService = new EventService(jdbcTemplate);
+
         return eventService.createEvent(eventRequestDto);
     }
 
     @GetMapping("/{eventId}")
     public EventResponseDto selectEvent(@PathVariable Long eventId) {
-        EventService eventService = new EventService(jdbcTemplate);
+
         return eventService.selectEvent(eventId);
     }
 
     @GetMapping()
     public List<Event> selectEvents(@RequestBody EventRequestDto eventRequestDto){
-        EventService eventService = new EventService(jdbcTemplate);
+
         return eventService.selectEvents(eventRequestDto);
     }
 
     @PutMapping("/{eventId}")
     public Long updateEvent(@PathVariable Long eventId, @RequestBody EventRequestDto eventRequestDto){
-        EventService eventService = new EventService(jdbcTemplate);
+
         return eventService.updateEvent(eventId,eventRequestDto);
     }
 
     @DeleteMapping("/{eventId}")
     public Long deleteEvent(@PathVariable Long eventId,@RequestBody EventRequestDto eventRequestDto){
-        EventService eventService = new EventService(jdbcTemplate);
+
         return eventService.deleteEvent(eventId,eventRequestDto);
     }
 
