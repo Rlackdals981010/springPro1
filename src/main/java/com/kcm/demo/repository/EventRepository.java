@@ -82,10 +82,10 @@ public class EventRepository {
 
 
     public void updateById(Long eventId, EventRequestDto eventRequestDto) {
-        if(eventRequestDto.getName() == null || eventRequestDto.getName().isEmpty()) {
+        if(eventRequestDto.getName() == null ) {
             String sql = "UPDATE event SET todo = ? WHERE eventId = ? and password = ?";
             jdbcTemplate.update(sql, eventRequestDto.getTodo(), eventId, eventRequestDto.getPassword());
-        } else if(eventRequestDto.getTodo() == null || eventRequestDto.getTodo().isEmpty()) {
+        } else if(eventRequestDto.getTodo() == null ) {
             String sql = "UPDATE event SET name = ? WHERE eventId = ? and password = ?";
             jdbcTemplate.update(sql, eventRequestDto.getName(), eventId, eventRequestDto.getPassword());
         } else {
