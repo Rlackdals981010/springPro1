@@ -5,7 +5,6 @@ import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import com.kcm.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

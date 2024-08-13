@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -64,7 +63,7 @@ public class EventRepository {
     }
 
     public List<Event> findByUpdateOrName(Date updateDay, String name) {
-        String sql = "SELECT eventId, todo, name, createDay, updateDay from event where updateDay = ? or name = ?";
+        String sql = "SELECT eventId, todo, name, createDay, updateDay from event where updateDay = ? or name = ? ORDER BY updateDay desc";
 
         // java.util.Date를 java.sql.Date로 변환
         java.sql.Date sqlUpdateDay = new java.sql.Date(updateDay.getTime()); // 필수

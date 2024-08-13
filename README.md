@@ -3,30 +3,50 @@
 ---
 
 ## Calendar v1.0
-
+> 개발 기간 2024.08.12 ~ 2024.08.15
 ## 정보
+개인용 Calendar입니다.
 
 ## 배포 주소
-
+미배포 입니다.
 ## 소개
-
+[김창민](https://github.com/Rlackdals981010)
 ## 프로젝트 소개
-
-# 가이드
+- 개인용 일정을 저장하는 캘린더 입니다.
+- 단일 일정에는 할일, 담당자명, 생성일, 최종 수정일이 저장됩니다.
+- 작성, 단일조회, 범위조회, 수정, 삭제 기능을 지원합니다.
 
 ---
 
 ## 요구 사항
 
-## 설치 및 실행
+- 일정 작성 
+    - 할일, 담당자명, 비밀번호, 생성일, 최종 수정일을 저장합니다.
+    - eventId는 자동으로 생성됩니다.
+    - 최초 작성시 생성일과 수정일은 일치합니다.
+    - 등록한 정보를 반환합니다.
+  
+- 선택한 일정 조회 
+  - 고유식별자를 이용해서 단건의 응답 정보를 조회합니다.
+
+- 일정 목록 조회 
+  - YYYY-MM-DD 형식의 수정일을 통해 조회합니다.
+  - 담당자명을 통해 조회합니다.
+  - 위 2가지 조건중 하나라도 일치하면 조회합니다.
+  - 수정일 기준으로 내림차순 정렬합니다.
+
+- 선택한 일정 수정 : eventId를 password를 이용해서 해당 event의 할일과 담당자를 수정합니다.
+
+- 선택한 일정 삭제 : eventId와 password를 이용해서 해당 event를 삭제합니다.
 
 # Stacks
+![자바](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![스프링](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![mysql](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 
 ---
 
-# 화면 구성
 
----
 
 # API
 
@@ -38,7 +58,7 @@
 | 선택한 일정 조회 | GET    | /events/{eventid} | Param   | 단건 응답 정보 | 200 : 정상조회 |
 | 일정 목록 조회  | GET    | /events           | Body    | 다건 응답 정보 | 200 : 정상조회 |
 | 선택한 일정 수정 | PUT    | /events/{eventid} | Body    | 수정 id    | 200 : 정상수정 |
-| 선택한 일정 삭제 | DELETE | /events/{eventid} | Body    | 삭제 id        | 200 : 정상삭제 |
+| 선택한 일정 삭제 | DELETE | /events/{eventid} | Body    | 삭제 id    | 200 : 정상삭제 |
 
 # 주요 기능
 
