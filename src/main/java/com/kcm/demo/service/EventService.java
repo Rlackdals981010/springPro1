@@ -4,25 +4,25 @@ import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import com.kcm.demo.repository.EventRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
-public class EventService {
+@Component // bean 객체 등록 . 즉, bean 클래스로 설정한다는 것.
+public class EventService { //eventService라는 이름으로 IoC 컨테이너에 빈 등록
 
     private final EventRepository eventRepository;
 
-    public EventService(JdbcTemplate jdbcTemplate) {
-        this.eventRepository = new EventRepository(jdbcTemplate);
+    @Autowired//생성자 1개일떄 생략 가능
+    public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
     }
 
 
     public EventResponseDto createEvent(EventRequestDto eventRequestDto) {
         Event event = new Event(eventRequestDto);
-
         Event saveEvent = eventRepository.save(event);
-
         return new EventResponseDto(saveEvent);
     }
 
@@ -41,7 +41,6 @@ public class EventService {
     public List<Event> selectEvents(EventRequestDto eventRequestDto) {
 
         List<Event> eventList = eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getName());
-
         if(eventList!=null){
             return eventList;
         }

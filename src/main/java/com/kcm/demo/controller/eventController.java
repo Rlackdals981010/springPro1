@@ -5,7 +5,6 @@ import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import com.kcm.demo.service.EventService;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +14,9 @@ import java.util.List;
 public class eventController {
 
     private final  EventService eventService;
-    public eventController(JdbcTemplate jdbcTemplate) {
-        this.eventService = new EventService(jdbcTemplate);
+
+    public eventController(EventService eventService) {
+        this.eventService = eventService;
     }
 
     @PostMapping()

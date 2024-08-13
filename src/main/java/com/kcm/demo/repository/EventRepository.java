@@ -2,23 +2,26 @@ package com.kcm.demo.repository;
 
 import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.entity.Event;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 
+@Component // 빈 객체
 public class EventRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
+    @Autowired//생성자 1개일떄 생략 가능
     public EventRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 
     public Event save(Event event) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
