@@ -56,4 +56,14 @@ public class ManagerService {
         }
 
     }
+
+    public String deleteManager(String manId) {
+        Manager deleteManager = managerRepository.findById(manId);
+        if (deleteManager != null) {
+            managerRepository.deleteById(manId);
+            return manId;
+        } else {
+            throw new IllegalArgumentException("존재하지 않는 매니저 입니다.");
+        }
+    }
 }

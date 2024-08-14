@@ -93,4 +93,9 @@ public class ManagerRepository {
         return findById(manId);
 
     }
+
+    public void deleteById(String manId) {
+        String sql = "DELETE FROM manager WHERE manId=?";
+        jdbcTemplate.update(sql, manId);
+    }
 }

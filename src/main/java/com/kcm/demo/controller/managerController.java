@@ -41,8 +41,8 @@ public class managerController {
     }
 
     @DeleteMapping("/{manId}")
-    public String deleteManaget(@PathVariable String manId) {
-        return null;
+    public String deleteManager(@PathVariable String manId) {
+        return managerService.deleteManager(manId);
     }
 
 }
