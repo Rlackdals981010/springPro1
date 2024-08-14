@@ -35,13 +35,13 @@ public class managerController {
         return managerService.selectManagers();
     }
 
-    @PutMapping("/{manid}")
-    public ManagerResponseDto updateManager(@PathVariable Long manId, @RequestBody ManagerResponseDto managerResponseDto){
-        return  null;
+    @PutMapping("/{manId}")
+    public ManagerResponseDto updateManager(@PathVariable String manId, @RequestBody ManagerRequestDto managerRequestDto){
+        return managerService.updateManager(manId, managerRequestDto);
     }
 
-    @DeleteMapping("/{manid}")
-    public Long deleteManaget(@PathVariable Long manId) {
+    @DeleteMapping("/{manId}")
+    public String deleteManaget(@PathVariable String manId) {
         return null;
     }
 

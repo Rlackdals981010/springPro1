@@ -45,4 +45,15 @@ public class ManagerService {
             throw new IllegalArgumentException();
         }
     }
+
+    public ManagerResponseDto updateManager(String manId, ManagerRequestDto managerRequestDto) {
+        Manager updateManager = managerRepository.findById(manId);
+        if (updateManager != null) {
+            return new ManagerResponseDto(managerRepository.updateById(manId,managerRequestDto));
+
+        } else {
+            throw new IllegalArgumentException("존재하지 않는 매니저 입니다.");
+        }
+
+    }
 }

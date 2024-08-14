@@ -1,5 +1,6 @@
 package com.kcm.demo.repository;
 
+import com.kcm.demo.dto.ManagerRequestDto;
 import com.kcm.demo.entity.Event;
 import com.kcm.demo.entity.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,28 @@ public class ManagerRepository {
             manager.setUpdateDay(resultSet.getDate("updateDay"));
             return manager;
         });
+    }
+
+    public Manager updateById(String manId, ManagerRequestDto managerRequestDto) {
+        String sql;
+        Object[] params;
+
+        if(managerRequestDto.getName()==null){
+            sql = "UPDATE manager SET email = ? WHERE manId=?";
+            params = new Object[]{managerRequestDto.getEmail(), manId};
+        }
+        else if(managerRequestDto.getEmail()==null){
+            sql = "UPDATE manager SET name = ? WHERE manId=?";
+            params = new Object[]{managerRequestDto.getName(), manId};
+        }
+        else{
+            sql = "UPDATE manager SET email = ?, name=? WHERE manId=?";
+            params = new Object[]{managerRequestDto.getEmail(), managerRequestDto.getEmail(), manId};
+        }
+
+        jdbcTemplate.update(sql, params);
+
+        return findById(manId);
+
     }
 }

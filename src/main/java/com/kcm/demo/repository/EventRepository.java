@@ -52,7 +52,7 @@ public class EventRepository {
                 Event event = new Event();
                 event.setEventId(eventId);
                 event.setTodo(resultSet.getString("todo"));
-                event.setManId(resultSet.getString("name"));
+                event.setManId(resultSet.getString("manId"));
                 event.setCreateDay(resultSet.getDate("createDay"));
                 event.setUpdateDay(resultSet.getDate("updateDay"));
                 return event;
@@ -72,7 +72,7 @@ public class EventRepository {
             Event event = new Event();
             event.setEventId(resultSet.getLong("eventId"));
             event.setTodo(resultSet.getString("todo"));
-            event.setManId(resultSet.getString("name"));
+            event.setManId(resultSet.getString("manId"));
             event.setCreateDay(resultSet.getDate("createDay"));
             event.setUpdateDay(resultSet.getDate("updateDay"));
             return event;
@@ -97,16 +97,17 @@ public class EventRepository {
 
         jdbcTemplate.update(sql, params);
 
-        String selectSql = "SELECT * FROM event WHERE eventId = ?";
-        return jdbcTemplate.queryForObject(selectSql, (resultSet, rowNum) -> {
-            Event event = new Event();
-            event.setEventId(resultSet.getLong("eventId"));
-            event.setTodo(resultSet.getString("todo"));
-            event.setManId(resultSet.getString("name"));
-            event.setCreateDay(resultSet.getDate("createDay"));
-            event.setUpdateDay(resultSet.getDate("updateDay"));
-            return event;
-        }, eventId);
+//        String selectSql = "SELECT * FROM event WHERE eventId = ?";
+//        return jdbcTemplate.queryForObject(selectSql, (resultSet, rowNum) -> {
+//            Event event = new Event();
+//            event.setEventId(resultSet.getLong("eventId"));
+//            event.setTodo(resultSet.getString("todo"));
+//            event.setManId(resultSet.getString("name"));
+//            event.setCreateDay(resultSet.getDate("createDay"));
+//            event.setUpdateDay(resultSet.getDate("updateDay"));
+//            return event;
+//        }, eventId);
+        return findById(eventId);
     }
 
 
