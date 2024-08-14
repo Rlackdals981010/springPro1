@@ -1,11 +1,13 @@
 package com.kcm.demo.repository;
 
+import com.kcm.demo.entity.Event;
 import com.kcm.demo.entity.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+
 
 @Repository
 public class ManagerRepository {
@@ -30,5 +32,25 @@ public class ManagerRepository {
         });
 
         return manager;
+    }
+
+    public Manager findById(String manId) {
+
+        String sql = "SELECT name, email,createDay,updateDay from manager where manId=?";
+
+        return jdbcTemplate.query(sql,resultSet->{
+            if (resultSet.next()) {
+                Manager manager = new Manager();
+                manager.setManId(manId);
+                manager.setName(resultSet.getString("name"));
+                manager.setEmail(resultSet.getString("email"));
+                manager.setCreateDay(resultSet.getDate("createDay"));
+                manager.setUpdateDay(resultSet.getDate("updateDay"));
+                return manager;
+            }
+            return null;
+        }, manId);
+
+
     }
 }

@@ -25,9 +25,9 @@ public class managerController {
         return managerService.createManager(managerRequestDto);
     }
 
-    @GetMapping("/{manid}")
-    public ManagerResponseDto selectManager(@PathVariable Long manId){
-        return null;
+    @GetMapping("/{manId}")
+    public ManagerResponseDto selectManager(@PathVariable String manId){
+        return managerService.selectManager(manId);
     }
 
     @GetMapping()

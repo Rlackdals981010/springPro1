@@ -27,7 +27,6 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
     }
 
     public EventResponseDto selectEvent(Long eventId) {
-
         Event selectEvent = eventRepository.findById(eventId);
         if(selectEvent!=null){
             return new EventResponseDto(selectEvent);
