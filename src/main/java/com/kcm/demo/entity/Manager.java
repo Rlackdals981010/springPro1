@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+import javax.validation.constraints.Email;
 import java.sql.Date;
 
 @Getter
@@ -14,6 +16,8 @@ public class Manager {
 
     private String manId;
     private String name;
+
+    @Email
     private String email;
     private Date createDay;
     private Date updateDay;
