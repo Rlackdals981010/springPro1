@@ -65,7 +65,7 @@ public class EventRepository {
     }
 
     public List<Event> findByUpdateOrName(Date updateDay, String name) {
-        String sql = "SELECT eventId, todo, manId, createDay, updateDay from event where updateDay = ? or manId = ? ORDER BY updateDay desc";
+        String sql = "SELECT eventId, todo, manId, createDay, updateDay from event where updateDay = ? and manId = ? ORDER BY updateDay desc";
 
         // java.util.Date를 java.sql.Date로 변환
         java.sql.Date sqlUpdateDay = new java.sql.Date(updateDay.getTime()); // 필수
