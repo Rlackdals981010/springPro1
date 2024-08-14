@@ -1,7 +1,6 @@
 package com.kcm.demo.entity;
 
 import com.kcm.demo.dto.ManagerRequestDto;
-import com.kcm.demo.dto.ManagerResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
