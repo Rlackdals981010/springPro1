@@ -38,8 +38,8 @@ public class EventController {
 
     @GetMapping()
     public List<Event> selectEvents(
-        @RequestParam(name = "manId",required = false) String manId,
-        @RequestParam(name = "updateDay",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date updateDay){
+            @RequestParam(name = "manId") String manId,
+            @RequestParam(name = "updateDay") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date updateDay){
         return eventService.selectEvents(updateDay,manId);
     }
 
