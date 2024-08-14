@@ -49,4 +49,10 @@ public class eventController {
         return eventService.deleteEvent(eventId,eventRequestDto);
     }
 
+    ////////////////////
+    @GetMapping("/pages/{pagenum}")
+    public List<Event> selectPages(@PathVariable Long pagenum){
+        return eventService.selectPages(pagenum);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.kcm.demo.service;
 import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
+import com.kcm.demo.entity.Page;
 import com.kcm.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,5 +72,10 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
             throw new IllegalArgumentException("존재하지 않는 일정입니다.");
         }
 
+    }
+
+    public List<Event> selectPages(Long pagenum){
+        Page page = new Page(pagenum);
+        return eventRepository.findByPage(page);
     }
 }

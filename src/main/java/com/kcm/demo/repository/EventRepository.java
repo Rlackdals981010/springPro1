@@ -2,6 +2,7 @@ package com.kcm.demo.repository;
 
 import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.entity.Event;
+import com.kcm.demo.entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -115,5 +116,18 @@ public class EventRepository {
     public void deleteById(Long eventId,EventRequestDto eventRequestDto) {
         String sql = "DELETE FROM event WHERE eventId =? and password=?";
         jdbcTemplate.update(sql, eventId,eventRequestDto.getPassword());
+    }
+
+    public List<Event> findByPage(Page page) {
+        String sql = "SELECT eventId, todo, manId, createDay, updateDay from event order by eventId limit ?,?";
+        return jdbcTemplate.query(sql, (resultSet, rowNum) -> {
+            Event event = new Event();
+            event.setEventId(resultSet.getLong("eventId"));
+            event.setTodo(resultSet.getString("todo"));
+            event.setManId(resultSet.getString("manId"));
+            event.setCreateDay(resultSet.getDate("createDay"));
+            event.setUpdateDay(resultSet.getDate("updateDay"));
+            return event;
+        }, page.getPageStart(), page.getPageStart()+ page.getPageSize());
     }
 }
