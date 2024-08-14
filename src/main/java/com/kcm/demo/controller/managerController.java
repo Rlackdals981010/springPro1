@@ -31,8 +31,8 @@ public class managerController {
     }
 
     @GetMapping()
-    public List<Manager> selectManagers(@RequestBody ManagerResponseDto managerResponseDto){
-        return null;
+    public List<Manager> selectManagers(){
+        return managerService.selectManagers();
     }
 
     @PutMapping("/{manid}")

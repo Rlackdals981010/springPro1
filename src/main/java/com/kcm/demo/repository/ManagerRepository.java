@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 
 
 @Repository
@@ -52,5 +53,20 @@ public class ManagerRepository {
         }, manId);
 
 
+    }
+
+
+    public List<Manager> findAllManager() {
+        String sql = "SELECT * from manager ORDER BY manID";
+
+        return jdbcTemplate.query(sql, (resultSet, rowNum) -> {
+            Manager manager = new Manager();
+            manager.setManId(resultSet.getString("manId"));
+            manager.setName(resultSet.getString("name"));
+            manager.setEmail(resultSet.getString("email"));
+            manager.setCreateDay(resultSet.getDate("createDay"));
+            manager.setUpdateDay(resultSet.getDate("updateDay"));
+            return manager;
+        });
     }
 }

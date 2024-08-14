@@ -8,6 +8,8 @@ import com.kcm.demo.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ManagerService {
     private final ManagerRepository managerRepository;
@@ -31,6 +33,16 @@ public class ManagerService {
         }
         else{
             throw new IllegalArgumentException("존재하지 않는 매니저 입니다.");
+        }
+    }
+
+    public List<Manager> selectManagers() {
+        List<Manager> managerList = managerRepository.findAllManager();
+        if (managerList != null) {
+            return managerList;
+        }
+        else {
+            throw new IllegalArgumentException();
         }
     }
 }
