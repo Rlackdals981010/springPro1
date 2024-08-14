@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionController {
 
     @ExceptionHandler(IncorrectPasswordException.class)
-    public ResponseEntity<String> handledIncorrectPasswordException(IncorrectPasswordException x){
+    public ResponseEntity<String> handledIncorrectPasswordException(IncorrectPasswordException x) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(x.getMessage());
+    }
+
+    @ExceptionHandler(IncorrectEventException.class)
+    public ResponseEntity<String> handledIncorrectEventException(IncorrectEventException x){
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(x.getMessage());
     }
 

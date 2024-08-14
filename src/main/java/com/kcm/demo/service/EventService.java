@@ -4,6 +4,7 @@ import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import com.kcm.demo.entity.Page;
+import com.kcm.demo.exception.IncorrectEventException;
 import com.kcm.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
             return new EventResponseDto(selectEvent);
         }
         else{
-            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
+            throw new IncorrectEventException("존재하지 않는 일정입니다.");
         }
 
     }
@@ -45,7 +46,7 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
             return eventList;
         }
         else{
-            throw new IllegalArgumentException();
+            throw new IncorrectEventException("존재하지 않는 일정입니다.");
         }
     }
 
@@ -57,7 +58,7 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
         }
 
         else {
-            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
+            throw new IncorrectEventException("존재하지 않는 일정입니다.");
         }
     }
 
@@ -69,7 +70,7 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
             return eventId;
         }
         else {
-            throw new IllegalArgumentException("존재하지 않는 일정입니다.");
+            throw new IncorrectEventException("존재하지 않는 일정입니다.");
         }
 
     }
