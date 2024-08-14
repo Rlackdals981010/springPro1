@@ -85,14 +85,14 @@ public class EventRepository {
         Object[] params;
 
         if (eventRequestDto.getManId() == null) {
-            sql = "UPDATE event SET todo = ? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getTodo(), eventId, eventRequestDto.getPassword()};
+            sql = "UPDATE event SET todo = ? , updateDay =? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getTodo(),eventRequestDto.getUpdateDay() ,eventId, eventRequestDto.getPassword()};
         } else if (eventRequestDto.getTodo() == null) {
-            sql = "UPDATE event SET manId = ? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getManId(), eventId, eventRequestDto.getPassword()};
+            sql = "UPDATE event SET manId = ? , updateDay =? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getManId(),eventRequestDto.getUpdateDay(),eventId, eventRequestDto.getPassword()};
         } else {
-            sql = "UPDATE event SET todo = ?, manId = ? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getManId(), eventId, eventRequestDto.getPassword()};
+            sql = "UPDATE event SET todo = ?, manId = ? , updateDay =? WHERE eventId = ? and password = ?";
+            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getManId(),eventRequestDto.getUpdateDay(), eventId, eventRequestDto.getPassword()};
         }
 
         jdbcTemplate.update(sql, params);
