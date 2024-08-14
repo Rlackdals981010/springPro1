@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Event {
+
     private Long eventId;
     private String todo;
     private String manId;

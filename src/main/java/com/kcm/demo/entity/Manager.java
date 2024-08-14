@@ -16,8 +16,6 @@ public class Manager {
 
     private String manId;
     private String name;
-
-    @Email
     private String email;
     private Date createDay;
     private Date updateDay;

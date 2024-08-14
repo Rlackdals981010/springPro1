@@ -9,6 +9,7 @@ import com.kcm.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service // bean 객체 등록 . 즉, bean 클래스로 설정한다는 것.
@@ -39,9 +40,9 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
 
     }
 
-    public List<Event> selectEvents(EventRequestDto eventRequestDto) {
+    public List<Event> selectEvents(Date updateDay, String manId) {
 
-        List<Event> eventList = eventRepository.findByUpdateOrName(eventRequestDto.getUpdateDay(),eventRequestDto.getManId());
+        List<Event> eventList = eventRepository.findByUpdateOrName(updateDay,manId);
         if(eventList!=null){
             return eventList;
         }
