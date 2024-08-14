@@ -3,6 +3,7 @@ package com.kcm.demo.repository;
 import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.entity.Event;
 import com.kcm.demo.entity.Page;
+import com.kcm.demo.exception.IncorrectPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -48,8 +49,8 @@ public class EventRepository {
     public Event findById(Long eventId) {
         String sql = "SELECT todo, manId, createDay, updateDay from event where eventId = ?";
 
-        return jdbcTemplate.query(sql,resultSet->{
-            if(resultSet.next()){
+        return jdbcTemplate.query(sql, resultSet -> {
+            if (resultSet.next()) {
                 Event event = new Event();
                 event.setEventId(eventId);
                 event.setTodo(resultSet.getString("todo"));
@@ -59,7 +60,7 @@ public class EventRepository {
                 return event;
             }
             return null;
-        },eventId);
+        }, eventId);
 
     }
 
@@ -85,15 +86,20 @@ public class EventRepository {
         String sql;
         Object[] params;
 
+        String pw = checkPW(eventId);
+        if (!pw.equals(eventRequestDto.getPassword())) {
+            throw new IncorrectPasswordException("비밀번호가 일치하지 않습니다.");
+        }
+
         if (eventRequestDto.getManId() == null) {
             sql = "UPDATE event SET todo = ? , updateDay =? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getTodo(),eventRequestDto.getUpdateDay() ,eventId, eventRequestDto.getPassword()};
+            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getUpdateDay(), eventId, eventRequestDto.getPassword()};
         } else if (eventRequestDto.getTodo() == null) {
             sql = "UPDATE event SET manId = ? , updateDay =? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getManId(),eventRequestDto.getUpdateDay(),eventId, eventRequestDto.getPassword()};
+            params = new Object[]{eventRequestDto.getManId(), eventRequestDto.getUpdateDay(), eventId, eventRequestDto.getPassword()};
         } else {
             sql = "UPDATE event SET todo = ?, manId = ? , updateDay =? WHERE eventId = ? and password = ?";
-            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getManId(),eventRequestDto.getUpdateDay(), eventId, eventRequestDto.getPassword()};
+            params = new Object[]{eventRequestDto.getTodo(), eventRequestDto.getManId(), eventRequestDto.getUpdateDay(), eventId, eventRequestDto.getPassword()};
         }
 
         jdbcTemplate.update(sql, params);
@@ -112,10 +118,21 @@ public class EventRepository {
     }
 
 
+    public void deleteById(Long eventId, EventRequestDto eventRequestDto) {
 
-    public void deleteById(Long eventId,EventRequestDto eventRequestDto) {
+        String pw = checkPW(eventId);
+        if (!pw.equals(eventRequestDto.getPassword())) {
+            throw new IncorrectPasswordException("비밀번호가 일치하지 않습니다.");
+        }
+
+        //비밀번호 검증
         String sql = "DELETE FROM event WHERE eventId =? and password=?";
-        jdbcTemplate.update(sql, eventId,eventRequestDto.getPassword());
+        jdbcTemplate.update(sql, eventId, eventRequestDto.getPassword());
+    }
+
+    private String checkPW(Long eventId){
+        String sql = "SELECT password FROM event WHERE eventId = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{eventId}, String.class);
     }
 
 
