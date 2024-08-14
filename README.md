@@ -70,29 +70,29 @@
 
 ## events
 
-| 기능        | Method | URL               | request | response | 상태코드       |
-|-----------|--------|-------------------|---------|----------|------------|
-| 일정 작성     | POST   | /events           | Body    | 등록 정보    | 200 : 정상작성 |
-| 선택한 일정 조회 | GET    | /events/{eventid} | Param   | 단건 응답 정보 | 200 : 정상조회 |
-| 일정 목록 조회  | GET    | /events           | Body    | 다건 응답 정보 | 200 : 정상조회 |
-| 선택한 일정 수정 | PUT    | /events/{eventid} | Body    | 수정 정보    | 200 : 정상수정 |
-| 선택한 일정 삭제 | DELETE | /events/{eventid} | Body    | 삭제 id    | 200 : 정상삭제 |
+| 기능        | Method | URL               | request | response | 상태코드                            |
+|-----------|--------|-------------------|---------|----------|---------------------------------|
+| 일정 작성     | POST   | /events           | Body    | 등록 정보    | `200 : 정상작성`,`404 : 조회불가`       |
+| 선택한 일정 조회 | GET    | /events/{eventid} | Param   | 단건 응답 정보 | `200 : 정상조회`,`404 : 조회불가`       |
+| 일정 목록 조회  | GET    | /events           | Body    | 다건 응답 정보 | `200 : 정상조회`,  `404 : 조회불가`     |
+| 선택한 일정 수정 | PUT    | /events/{eventid} | Body    | 수정 정보    | `200 : 정상수정`,`403: 비밀번호 입력 오류`  |
+| 선택한 일정 삭제 | DELETE | /events/{eventid} | Body    | 삭제 id    | `200 : 정상삭제`, `403: 비밀번호 입력 오류` |
 
 ## managers
 
-| 기능         | Method | URL               | request | response | 상태코드       |
-|------------|--------|-------------------|---------|----------|------------|
-| 관리자 추가     | POST   | /managers         | Body    | 등록 정보    | 200 : 정상작성 |
-| 선택한 관리자 조회 | GET    | /managers/{manid} | Param   | 단건 응답 정보 | 200 : 정상조회 |
-| 관리자 목록 조회  | GET    | /managers         | Body    | 다건 응답 정보 | 200 : 정상조회 |
-| 선택한 관리자 수정 | PUT    | /managers/{manid} | Body    | 수정 id    | 200 : 정상수정 |
-| 선택한 관리자 삭제 | DELETE | /managers/{manid} | Body    | 삭제 id    | 200 : 정상삭제 |
+| 기능         | Method | URL               | request | response | 상태코드         |
+|------------|--------|-------------------|---------|----------|--------------|
+| 관리자 추가     | POST   | /managers         | Body    | 등록 정보    | `200 : 정상작성` |
+| 선택한 관리자 조회 | GET    | /managers/{manid} | Param   | 단건 응답 정보 | `200 : 정상조회` |
+| 관리자 목록 조회  | GET    | /managers         | Body    | 다건 응답 정보 | `200 : 정상조회` |
+| 선택한 관리자 수정 | PUT    | /managers/{manid} | Body    | 수정 id    | `200 : 정상수정` |
+| 선택한 관리자 삭제 | DELETE | /managers/{manid} | Body    | 삭제 id    | `200 : 정상삭제` |
 
 ## pages
 
-| 기능        | Method | URL              | request | response  | 상태코드       |
-|-----------|--------|------------------|---------|-----------|------------|
-| 해당 페이지 조회 | GET    | /pages/{pagenum} | Param   | 단일 페이지 정보 | 200 : 정상조회 |
+| 기능        | Method | URL              | request | response  | 상태코드         |
+|-----------|--------|------------------|---------|-----------|--------------|
+| 해당 페이지 조회 | GET    | /pages/{pagenum} | Param   | 단일 페이지 정보 | `200 : 정상조회` |
 
 # 주요 기능
 

@@ -15,7 +15,7 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(IncorrectEventException.class)
     public ResponseEntity<String> handledIncorrectEventException(IncorrectEventException x){
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(x.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(x.getMessage());
     }
 
 }
