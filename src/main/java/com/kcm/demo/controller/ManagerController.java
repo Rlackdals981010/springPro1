@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/managers")
-public class managerController {
+public class ManagerController {
 
     private ManagerService managerService;
     @Autowired
-    public managerController(ManagerService managerService) {
+    public ManagerController(ManagerService managerService) {
         this.managerService = managerService;
     }
 

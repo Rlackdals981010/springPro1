@@ -74,8 +74,6 @@ public class EventService { //eventService라는 이름으로 IoC 컨테이너�
 
     }
 
-    public List<Event> selectPages(Long pagenum){
-        Page page = new Page(pagenum);
-        return eventRepository.findByPage(page);
-    }
+
+
 }

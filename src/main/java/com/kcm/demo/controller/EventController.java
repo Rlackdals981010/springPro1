@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/events")
-public class eventController {
+public class EventController {
 
     private final EventService eventService;
 
-    public eventController(EventService eventService) {
+    public EventController(EventService eventService) {
         this.eventService = eventService;
     }
 
@@ -50,9 +50,6 @@ public class eventController {
     }
 
     ////////////////////
-    @GetMapping("/pages/{pagenum}")
-    public List<Event> selectPages(@PathVariable Long pagenum){
-        return eventService.selectPages(pagenum);
-    }
+
 
 }

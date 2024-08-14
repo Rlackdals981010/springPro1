@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.sql.Date;
 
 @Getter
-@Setter
 public class ManagerResponseDto {
     private String manId;
     private String name;

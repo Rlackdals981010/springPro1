@@ -118,16 +118,5 @@ public class EventRepository {
         jdbcTemplate.update(sql, eventId,eventRequestDto.getPassword());
     }
 
-    public List<Event> findByPage(Page page) {
-        String sql = "SELECT eventId, todo, manId, createDay, updateDay from event order by eventId limit ?,?";
-        return jdbcTemplate.query(sql, (resultSet, rowNum) -> {
-            Event event = new Event();
-            event.setEventId(resultSet.getLong("eventId"));
-            event.setTodo(resultSet.getString("todo"));
-            event.setManId(resultSet.getString("manId"));
-            event.setCreateDay(resultSet.getDate("createDay"));
-            event.setUpdateDay(resultSet.getDate("updateDay"));
-            return event;
-        }, page.getPageStart(), page.getPageStart()+ page.getPageSize());
-    }
+
 }
