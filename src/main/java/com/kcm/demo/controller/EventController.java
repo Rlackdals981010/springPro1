@@ -5,11 +5,13 @@ import com.kcm.demo.dto.EventRequestDto;
 import com.kcm.demo.dto.EventResponseDto;
 import com.kcm.demo.entity.Event;
 import com.kcm.demo.service.EventService;
+
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 import java.util.Date;
 import java.util.List;
 

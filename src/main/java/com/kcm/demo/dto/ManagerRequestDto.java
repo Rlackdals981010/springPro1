@@ -1,8 +1,8 @@
 package com.kcm.demo.dto;
 
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 
-import javax.validation.constraints.Email;
 import java.sql.Date;
 
 @Getter
