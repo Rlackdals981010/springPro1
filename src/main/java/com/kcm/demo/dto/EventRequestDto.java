@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import jakarta.validation.constraints.Size;
-import jakarta.validation.*;
 import java.util.Date;
 
 //Client가 입력하는 데이터가 여기를 통해서 매핑될꺼임.
